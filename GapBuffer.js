@@ -425,6 +425,77 @@ export default class GapBuffer {
   }
 
   /**
+   * Creates a serializable representation of the buffer.
+   *
+   * This stores the logical text and cursor position, not the internal
+   * gap array. The internal representation is intentionally omitted so
+   * future versions can change the implementation without breaking saved data.
+   *
+   * @returns {{ version: number, text: string, cursor: number }}
+   * A plain serializable object representing the buffer state.
+   */
+  toSerializable() {
+    return {
+      version: 1,
+      text: this.toString(),
+      cursor: this.cursor,
+    };
+  }
+  
+  /**
+   * Creates a new GapBuffer from text.
+   *
+   * The cursor is positioned at the end of the inserted text.
+   *
+   * @param {string} text - Text used to initialize the buffer.
+   * @throws {TypeError} If text is not a string.
+   * @returns {GapBuffer} A new gap buffer containing the given text.
+   */
+  static fromText(text) {
+    if (typeof text !== "string") {
+      throw new TypeError("GapBuffer.fromText() expects a string.");
+    }
+    
+    const buffer = new GapBuffer(Math.max(16, text.length * 2));
+    buffer.insert(text);
+    
+    return buffer;
+  }
+
+  /**
+   * Creates a new GapBuffer from serialized buffer data.
+   *
+   * @param {{ version: number, text: string, cursor: number }} data
+   * Serializable buffer data.
+   * @throws {TypeError} If the data is malformed.
+   * @returns {GapBuffer} A new gap buffer restored from serialized data.
+   */
+  static fromSerializable(data) {
+    if (data === null || typeof data !== "object") {
+      throw new TypeError("GapBuffer.fromSerializable() expects an object.");
+    }
+    
+    if (data.version !== 1) {
+      throw new TypeError("Unsupported GapBuffer serialization version.");
+    }
+    
+    if (typeof data.text !== "string") {
+      throw new TypeError("Serialized GapBuffer text must be a string.");
+    }
+    
+    if (typeof data.cursor !== "number" || Number.isNaN(data.cursor)) {
+      throw new TypeError(
+        "Serialized GapBuffer cursor must be a valid number."
+      );
+    }
+    
+    const buffer = GapBuffer.fromText(data.text);
+    buffer.moveCursor(data.cursor);
+    
+    return buffer;
+  }
+
+  /**
    * Returns a debugging snapshot of the current internal state.
    *
    * This is useful for tests, debugging, and visualizing the gap.
