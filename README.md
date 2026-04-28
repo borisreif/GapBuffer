@@ -45,6 +45,12 @@ console.log(buffer.length); // 6
 - setText(text)
 - charAt(index)
 
+### Serialization
+
+- toSerializable()
+- fromText(text)
+- fromSerializable(data)
+
 ### Debug API
 
 - debugSnapshot()

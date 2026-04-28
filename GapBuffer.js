@@ -58,6 +58,11 @@
  * - clear()
  * - setText(text)
  * - charAt(index)
+ * 
+ * Serialization API:
+ * - toSerializable()
+ * - fromText(text)
+ * - fromSerializable(data)
  *
  * Debug API:
  * - debugSnapshot()
