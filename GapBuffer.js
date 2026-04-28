@@ -621,13 +621,15 @@ export default class GapBuffer {
       this.#gapStart <= this.#gapEnd &&
       this.#gapEnd <= this.#buffer.length;
 
-    throw new Error(
-      [
-        "Invalid gap state:",
-        `gapStart=${this.#gapStart}`,
-        `gapEnd=${this.#gapEnd}`,
-        `capacity=${this.#buffer.length}`,
-      ].join(" "),
-    );
+    if (!valid) {
+      throw new Error(
+        [
+          "Invalid gap state:",
+          `gapStart=${this.#gapStart}`,
+          `gapEnd=${this.#gapEnd}`,
+          `capacity=${this.#buffer.length}`,
+        ].join(" "),
+      );
+    }
   }
 }
