@@ -23,13 +23,14 @@ buffer.moveCursor(2);
 buffer.insert("X");
 
 console.log(buffer.toString()); // "heXllo"
-console.log(buffer.cursor);     // 3
-console.log(buffer.length);     // 6
+console.log(buffer.cursor); // 3
+console.log(buffer.length); // 6
 ```
 
 ## API
 
 ### Core API
+
 - length
 - cursor
 - capacity
