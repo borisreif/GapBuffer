@@ -1,3 +1,17 @@
 {
-    "type":"module"
+  "name": "gap-buffer",
+  "version": "0.1.0",
+  "description": "A small mutable gap buffer implementation in JavaScript.",
+  "type": "module",
+  "main": "GapBuffer.js",
+  "exports": "./GapBuffer.js",
+  "license": "MIT",
+  "author": "Boris A. Reif",
+  "scripts": {
+    "format": "prettier --write .",
+    "test": "node test/GapBuffer.test.js"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.0"
+  }
 }
