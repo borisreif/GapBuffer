@@ -9,7 +9,7 @@
   "author": "Boris A. Reif",
   "scripts": {
     "format": "prettier --write .",
-    "test": "node test/GapBuffer.test.js"
+    "test": "node --test"
   },
   "devDependencies": {
     "prettier": "^3.0.0"
